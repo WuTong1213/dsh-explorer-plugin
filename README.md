@@ -1,5 +1,7 @@
 # DSH Explorer 插件
 
+> **让 DSH 变成 VS Code 和浏览器的模样 —— 更适合新手，更简洁易懂。**
+
 一个 [DeepSeek Harness (DSH)](https://github.com/deepseek-ai/deepseek-harness) **静态 bundle 插件**，给 Web 界面加上两个增强：
 
 1. **VS Code 风格资源管理器**（侧边栏文件树）
