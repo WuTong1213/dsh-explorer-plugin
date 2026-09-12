@@ -1,0 +1,25 @@
+{
+  "name": "dsh-explorer-plugin",
+  "version": "0.1.0",
+  "description": "DSH Explorer: VS Code-style file tree + workspace-grouped session tabs",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": { "default": "./index.js" },
+    "./client": { "default": "./client.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["index.js", "client.js", "cordis.patch.yml", "README.md"],
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "inject": ["@deepseek-ai/dsh-client-runtime"],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
