@@ -1,26 +1,32 @@
 # DSH Explorer 插件
 
-> **让 DSH 变成 VS Code 和浏览器的模样 —— 更适合新手，更简洁易懂。**
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-web-8A2BE2?style=flat-square)
+![DSH Plugin](https://img.shields.io/badge/DSH-plugin-4B8BBE?style=flat-square)
+![No Build](https://img.shields.io/badge/no_build-pure_JS-3fb950?style=flat-square)
+
+> [!IMPORTANT]
+> **让 DSH 变成 VS Code 和浏览器的形状 —— 更适合新手，更简洁易懂。**
 
 一个 [DeepSeek Harness (DSH)](https://github.com/deepseek-ai/deepseek-harness) **静态 bundle 插件**，给 Web 界面加上两个增强：
 
-1. **VS Code 风格资源管理器**（侧边栏文件树）
-2. **按工作区分组的会话标签页**（浏览器式标签）
+1. 🗂️ **VS Code 风格资源管理器**（侧边栏文件树）
+2. 🌐 **按工作区分组的会话标签页**（浏览器式标签）
 
 安装后常驻生效，不需要每次会话重新加载。
 
 ---
 
-## 功能
+## ✨ 功能
 
-### 1. 资源管理器（`sidebar.workspaces`）
+### 🗂️ 1. 资源管理器（`sidebar.workspaces`）
 
 - 树形文件浏览：目录可展开/折叠，文件夹优先排序
 - 点击文件在底部预览面板显示文本内容
 - 新建文件夹、刷新、全部折叠
 - 侧边栏收起时显示为一个图标按钮（rail），点击展开
 
-### 2. 会话标签页（`conversation.session.header`）
+### 🌐 2. 会话标签页（`conversation.session.header`）
 
 - 会话标签**按工作区分组**：每个工作区（📁 + 标题）作为分组头，其下紧跟属于它的会话
 - 当前工作区、当前会话高亮
@@ -29,9 +35,12 @@
 - 归档当前会话时自动切到下一个已有会话（右边优先，否则左边），不会卡在「新会话」空态
 - 未归入任何工作区的会话归入「未分组」
 
+> [!TIP]
+> 「+」的语义是**打开该工作区的空闲会话**：已有空闲会话时直接切过去（不会堆出一串空会话），没有才会真正新建。所以当前就在空闲会话上时，点「+」看不出变化是正常的。
+
 ---
 
-## 文件结构
+## 📦 文件结构
 
 | 文件 | 说明 |
 | --- | --- |
@@ -43,9 +52,18 @@
 
 ---
 
-## 安装
+## 🚀 安装
 
-需要 `dsh` CLI 和 `pnpm` 在 PATH 上。
+### 从 GitHub 安装
+
+```powershell
+dsh plugin --profile web add github:WuTong1213/dsh-explorer-plugin
+```
+
+> [!NOTE]
+> 本插件是**纯 JS、无构建步骤**，所以 Git 安装不需要 `prepare` 脚本，也不需要 `allowBuilds` 放行。
+
+### 从本地目录安装（开发时）
 
 ```powershell
 # 在插件目录的上一级执行（相对路径会锚定到当前目录）
@@ -66,9 +84,13 @@ dsh --profile web --dump-config | Select-String explorer
   name: dsh-explorer-plugin
 ```
 
-### ⚠️ 重启才生效
+> [!TIP]
+> 如果提示 `dsh` 不是可识别的命令，说明 dsh 没在 PATH 上——改用它的完整路径（例如 `<DSH 部署目录>\node_modules\.bin\dsh.cmd`），或先把该目录加入 PATH。
 
-DSH 的 host 插件树和 client module graph **都在启动时组装**，不支持插件级热插拔。安装后必须重启：
+### 重启才生效
+
+> [!WARNING]
+> DSH 的 host 插件树和 client module graph **都在启动时组装**，不支持插件级热插拔。安装后必须重启：
 
 ```powershell
 # 1) 停止当前服务器
@@ -81,7 +103,7 @@ DSH 的 host 插件树和 client module graph **都在启动时组装**，不支
 
 ---
 
-## 卸载
+## 🗑️ 卸载
 
 ```powershell
 dsh plugin --profile web remove dsh-explorer-plugin
@@ -91,7 +113,7 @@ dsh plugin --profile web remove dsh-explorer-plugin
 
 ---
 
-## 架构
+## 🏗️ 架构
 
 ```
 Browser (client.js bundle)                    Host (index.js)
@@ -112,7 +134,8 @@ Browser (client.js bundle)                    Host (index.js)
 
 ### 为什么 Host 半区不注入 DSH 的 `fs` 服务
 
-`fs` 服务（`ctx.fs`）的唯一提供者 `dsh-fs-local` **挂在 agent preset 里**（`config/agent-presets/*/agent.cordis.yml`），不在 profile 顶层；profile 顶层同时也没有 `browse` capability。
+> [!NOTE]
+> `fs` 服务（`ctx.fs`）的唯一提供者 `dsh-fs-local` **挂在 agent preset 里**（`config/agent-presets/*/agent.cordis.yml`），不在 profile 顶层；profile 顶层同时也没有 `browse` capability。
 
 本插件挂在 profile 顶层，如果写 `inject: ['fs']` 就会永远停在 **PENDING** 而完全不加载。因此 Host 半区直接用 Node 自己的 `node:fs`：
 
@@ -121,18 +144,17 @@ Browser (client.js bundle)                    Host (index.js)
 
 ### 会替换官方 UI
 
-这两个 slot 都是 `single` 类型（一人独占）：
+> [!IMPORTANT]
+> 这两个 slot 都是 `single` 类型（一人独占）。注册即替换官方实现——**官方头部整条（标题、视图标签、模式/Subagent/Task 按钮、日志导出等）都不会再渲染**，这是有意的设计。
 
 - `sidebar.workspaces` —— 会话浏览区
 - `conversation.session.header` —— 会话头部
 
-注册即替换官方实现，插件卸载后官方 UI 自动恢复。这是有意的：插件的目的就是提供另一种浏览/切换体验。
-
-替换的实现方式：官方 UI 以默认优先级 0 注册这两个 slot，本插件以 `priority: -10` 注册（更低优先级渲染，同优先级会直接抛错）。因此官方注册仍然存活，本插件一旦卸载，官方 UI 立刻回到渲染位。
+替换的实现方式：官方 UI 以默认优先级 0 注册这两个 slot，本插件以 `priority: -10` 注册（更低优先级渲染，同优先级会直接抛错）。因此官方注册仍然存活，**插件卸载后官方 UI 立刻回到渲染位**。
 
 ---
 
-## 开发与验证
+## 🧪 开发与验证
 
 改完代码后，先跑离线验证（不需要重启）：
 
@@ -152,7 +174,7 @@ node --input-type=module -e "const m = await import('./index.js'); const ctx = {
 
 ---
 
-## 已知限制
+## ⚠️ 已知限制
 
 - 仅支持 Web（`dsh.client.platform: "web"`）。
 - 资源管理器根目录跟随当前会话的 `cwd`；没有会话/工作区时显示提示。
@@ -162,7 +184,7 @@ node --input-type=module -e "const m = await import('./index.js'); const ctx = {
 
 ---
 
-## 上传到 GitHub
+## 📤 发布到 GitHub（作者备忘）
 
 ```powershell
 cd dsh-explorer-plugin
@@ -177,6 +199,6 @@ git push -u origin main
 
 ---
 
-## 许可证
+## 📄 许可证
 
 MIT License
