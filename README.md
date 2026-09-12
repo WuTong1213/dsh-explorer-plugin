@@ -8,6 +8,8 @@
 > [!IMPORTANT]
 > **让 DSH 变成 VS Code 和浏览器的形状 —— 更适合新手，更简洁易懂。**
 
+![DSH Explorer 运行效果：左侧资源管理器文件树，顶部按工作区分组的会话标签页](screenshot.png)
+
 一个 [DeepSeek Harness (DSH)](https://github.com/deepseek-ai/deepseek-harness) **静态 bundle 插件**，给 Web 界面加上两个增强：
 
 1. 🗂️ **VS Code 风格资源管理器**（侧边栏文件树）
@@ -49,6 +51,7 @@
 | `cordis.patch.yml` | bundle patch：把插件行插入 cordis 配置 |
 | `package.json` | 声明 `dsh.bundle.patch`（bundle）与 `dsh.client`（浏览器 bundle） |
 | `verify-client.mjs` | 开发用验证脚本：mock `__ModuleLoader__`/react/ctx，离线验证 bundle 结构与渲染 |
+| `screenshot.png` | README 顶部的运行效果截图 |
 
 ---
 
