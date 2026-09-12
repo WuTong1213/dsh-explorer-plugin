@@ -38,7 +38,6 @@
 | `cordis.patch.yml` | bundle patch：把插件行插入 cordis 配置 |
 | `package.json` | 声明 `dsh.bundle.patch`（bundle）与 `dsh.client`（浏览器 bundle） |
 | `verify-client.mjs` | 开发用验证脚本：mock `__ModuleLoader__`/react/ctx，离线验证 bundle 结构与渲染 |
-| `legacy-dynamic/` | 早期**动态 Cordis 插件**版本（`cordis_define` + `cordis_run` 用），保留作参考 |
 
 ---
 
