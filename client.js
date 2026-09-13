@@ -34,8 +34,11 @@ window.__ModuleLoader__.load({
 .vex-preview{flex:none;max-height:40%;overflow:auto;border-top:1px solid var(--dsw-alias-border,#30363d);background:var(--dsw-specific-sidebar-fill,transparent);}
 .vex-preview pre{margin:0;padding:8px 12px;font-family:ui-monospace,Consolas,monospace;font-size:11px;white-space:pre-wrap;word-break:break-word;color:var(--dsw-alias-label-primary,#e6edf3);}
 .vtb-root{flex:none;display:flex;flex-direction:column;background:var(--dsw-specific-sidebar-fill,transparent);border-bottom:1px solid var(--dsw-alias-border-l1,#30363d);}
-.vtb-bar{display:flex;align-items:flex-end;gap:2px;padding:6px 8px 0;overflow-x:auto;overflow-y:hidden;}
-.vtb-bar::-webkit-scrollbar{display:none;}
+.vtb-bar{display:flex;align-items:flex-end;gap:2px;padding:6px 8px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.45) transparent;}
+.vtb-bar::-webkit-scrollbar{height:6px;}
+.vtb-bar::-webkit-scrollbar-track{background:transparent;}
+.vtb-bar::-webkit-scrollbar-thumb{background:rgba(128,128,128,.35);border-radius:3px;}
+.vtb-bar::-webkit-scrollbar-thumb:hover{background:rgba(128,128,128,.6);}
 .vtb-new{flex:none;width:28px;height:28px;margin-bottom:2px;border:1px solid transparent;background:transparent;border-radius:6px;color:var(--dsw-alias-label-secondary,#8b949e);cursor:pointer;font-size:16px;line-height:1;}
 .vtb-new:hover{background:var(--dsw-alias-interactive-bg-hover,#1f2430);color:var(--dsw-alias-label-primary,#e6edf3);}
 .vtb-group{flex:none;display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 8px 0 10px;margin-left:6px;border-left:2px solid var(--dsw-alias-border,#30363d);color:var(--dsw-alias-label-secondary,#8b949e);font-size:12px;font-weight:600;white-space:nowrap;}
@@ -306,6 +309,26 @@ window.__ModuleLoader__.load({
         const wsState = useWorkspaces((s) => s)
         const current = props.sessionId
         const byId = sessionsState.byId || {}
+        const barRef = react.useRef(null)
+        const activeRef = react.useRef(null)
+
+        // Keep the active tab reachable: with many tabs open it must never hide off-screen.
+        react.useEffect(() => {
+          const bar = barRef.current
+          const el = activeRef.current
+          if (!bar || !el) return
+          const left = el.offsetLeft
+          const right = left + el.offsetWidth
+          if (left < bar.scrollLeft) bar.scrollTo({ left, behavior: 'smooth' })
+          else if (right > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: right - bar.clientWidth, behavior: 'smooth' })
+        }, [current])
+
+        // Mouse wheel scrolls the strip horizontally (a vertical wheel has nothing to do here).
+        const onBarWheel = (e) => {
+          const bar = barRef.current
+          if (!bar) return
+          bar.scrollLeft += Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX
+        }
 
         const groups = react.useMemo(() => {
           const archived = new Set(wsState.archivedSessionIds || [])
@@ -376,6 +399,7 @@ window.__ModuleLoader__.load({
             const active = id === current
             items.push(react.createElement('div', {
               key: 't:' + id,
+              ref: active ? activeRef : null,
               className: 'vtb-tab' + (active ? ' vtb-tab-active' : ''),
               title: row.cwd || row.displayTitle,
               onClick: () => { if (!active) openSession(id) },
@@ -389,7 +413,7 @@ window.__ModuleLoader__.load({
         })
 
         return react.createElement('div', { className: 'vtb-root' },
-          react.createElement('div', { className: 'vtb-bar' },
+          react.createElement('div', { className: 'vtb-bar', ref: barRef, onWheel: onBarWheel },
             react.createElement('button', { className: 'vtb-new', title: '新建会话（该工作区已有空闲会话时直接切过去）', onClick: newSession }, '+'),
             items,
           ),
