@@ -39,6 +39,10 @@ if (!Array.isArray(mod.inject)) fail('exports.inject is not an array')
 
 const registered = []
 const ctx = {
+  effect(fn) {
+    const dispose = fn()
+    return typeof dispose === 'function' ? dispose : () => {}
+  },
   get(name) {
     if (name === 'slots') {
       return {

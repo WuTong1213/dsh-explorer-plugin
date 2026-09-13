@@ -12,49 +12,52 @@ window.__ModuleLoader__.load({
 
     const CSS = `
 .vex-root{display:flex;flex-direction:column;height:100%;min-height:0;font-size:13px;}
-.vex-header{display:flex;align-items:center;gap:2px;padding:6px 12px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dsw-alias-label-secondary,#8b949e);flex:none;}
+.vex-header{display:flex;align-items:center;gap:2px;padding:6px 12px 4px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--dsw-alias-label-secondary);flex:none;}
 .vex-header-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .vex-action{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:4px;color:inherit;cursor:pointer;font-size:12px;line-height:1;}
-.vex-action:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.22));}
+.vex-action:hover{background:rgba(128,128,128,.2);}
 .vex-tree{flex:1;overflow:auto;padding-bottom:8px;}
-.vex-row{display:flex;align-items:center;height:22px;gap:4px;cursor:pointer;color:var(--dsw-alias-label-primary,#e6edf3);white-space:nowrap;overflow:hidden;user-select:none;}
-.vex-row:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.16));}
-.vex-row.vex-selected{background:var(--dsw-alias-interactive-bg-selected,rgba(56,139,253,.24));}
+.vex-row{display:flex;align-items:center;height:22px;gap:4px;cursor:pointer;color:var(--dsw-alias-label-primary);white-space:nowrap;overflow:hidden;user-select:none;}
+.vex-row:hover{background:rgba(128,128,128,.16);}
+.vex-row.vex-selected{background:rgba(128,128,128,.24);background:color-mix(in srgb,var(--dsw-alias-brand-primary) 20%,transparent);}
 .vex-chevron{width:16px;height:16px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;color:inherit;cursor:pointer;font-size:10px;padding:0;transition:transform .12s ease;}
 .vex-chevron.vex-open{transform:rotate(90deg);}
 .vex-chevron.vex-leaf{visibility:hidden;}
 .vex-icon{flex:none;font-size:13px;line-height:1;}
 .vex-name{overflow:hidden;text-overflow:ellipsis;}
-.vex-empty{padding:4px 12px;color:var(--dsw-alias-label-secondary,#8b949e);font-size:12px;}
-.vex-error{color:var(--dsw-alias-danger,#f85149);}
-.vex-rail{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:8px;font-size:18px;cursor:pointer;}
-.vex-rail:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.22));}
+.vex-empty{padding:4px 12px;color:var(--dsw-alias-label-secondary);font-size:12px;}
+.vex-error{color:var(--dsw-alias-state-error-primary);}
+.vex-rail{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:8px;font-size:18px;cursor:pointer;color:var(--dsw-alias-label-secondary);}
+.vex-rail:hover{background:rgba(128,128,128,.2);}
 .vex-new{flex:none;padding:2px 12px 4px;}
-.vex-new input{width:100%;box-sizing:border-box;background:var(--dsw-alias-input-bg,transparent);border:1px solid var(--dsw-alias-border,#30363d);border-radius:4px;color:var(--dsw-alias-label-primary,#e6edf3);padding:3px 6px;font-size:12px;}
-.vex-preview{flex:none;max-height:40%;overflow:auto;border-top:1px solid var(--dsw-alias-border,#30363d);background:var(--dsw-specific-sidebar-fill,transparent);}
-.vex-preview pre{margin:0;padding:8px 12px;font-family:ui-monospace,Consolas,monospace;font-size:11px;white-space:pre-wrap;word-break:break-word;color:var(--dsw-alias-label-primary,#e6edf3);}
-.vtb-root{flex:none;display:flex;flex-direction:column;background:var(--dsw-specific-sidebar-fill,transparent);border-bottom:1px solid var(--dsw-alias-border-l1,#30363d);}
+.vex-new input{width:100%;box-sizing:border-box;background:var(--dsw-alias-bg-base);border:1px solid var(--dsw-alias-border-l2);border-radius:4px;color:var(--dsw-alias-label-primary);padding:3px 6px;font-size:12px;}
+.vex-preview{flex:none;max-height:40%;overflow:auto;border-top:1px solid var(--dsw-alias-border-l1);background:var(--dsw-specific-sidebar-fill);}
+.vex-preview pre{margin:0;padding:8px 12px;font-family:ui-monospace,Consolas,monospace;font-size:11px;white-space:pre-wrap;word-break:break-word;color:var(--dsw-alias-label-primary);}
+.vex-menu{position:fixed;z-index:2147483000;min-width:168px;padding:4px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:var(--dsw-alias-bg-overlay);box-shadow:0 10px 30px rgba(0,0,0,.28);font-size:12px;user-select:none;}
+.vex-menu-item{padding:6px 10px;border-radius:5px;color:var(--dsw-alias-label-primary);cursor:pointer;white-space:nowrap;}
+.vex-menu-item:hover{background:rgba(128,128,128,.2);}
+.vtb-root{flex:none;display:flex;flex-direction:column;background:var(--dsw-specific-sidebar-fill);border-bottom:1px solid var(--dsw-alias-border-l1);}
 .vtb-bar{display:flex;align-items:flex-end;gap:2px;padding:6px 8px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:rgba(128,128,128,.45) transparent;}
 .vtb-bar::-webkit-scrollbar{height:6px;}
 .vtb-bar::-webkit-scrollbar-track{background:transparent;}
 .vtb-bar::-webkit-scrollbar-thumb{background:rgba(128,128,128,.35);border-radius:3px;}
 .vtb-bar::-webkit-scrollbar-thumb:hover{background:rgba(128,128,128,.6);}
-.vtb-new{flex:none;width:28px;height:28px;margin-bottom:2px;border:1px solid transparent;background:transparent;border-radius:6px;color:var(--dsw-alias-label-secondary,#8b949e);cursor:pointer;font-size:16px;line-height:1;}
-.vtb-new:hover{background:var(--dsw-alias-interactive-bg-hover,#1f2430);color:var(--dsw-alias-label-primary,#e6edf3);}
-.vtb-group{flex:none;display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 8px 0 10px;margin-left:6px;border-left:2px solid var(--dsw-alias-border,#30363d);color:var(--dsw-alias-label-secondary,#8b949e);font-size:12px;font-weight:600;white-space:nowrap;}
+.vtb-new{flex:none;width:28px;height:28px;margin-bottom:2px;border:1px solid transparent;background:transparent;border-radius:6px;color:var(--dsw-alias-label-secondary);cursor:pointer;font-size:16px;line-height:1;}
+.vtb-new:hover{background:rgba(128,128,128,.2);color:var(--dsw-alias-label-primary);}
+.vtb-group{flex:none;display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 8px 0 10px;margin-left:6px;border-left:2px solid var(--dsw-alias-border-l1);color:var(--dsw-alias-label-secondary);font-size:12px;font-weight:600;white-space:nowrap;}
 .vtb-group-icon{font-size:13px;line-height:1;}
 .vtb-group-title{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.vtb-group-active{color:var(--dsw-alias-accent,#58a6ff);border-left-color:var(--dsw-alias-accent,#58a6ff);}
-.vtb-tab{display:flex;align-items:center;gap:6px;max-width:200px;min-width:120px;height:32px;padding:0 6px 0 12px;border:1px solid var(--dsw-alias-border,#30363d);border-bottom:none;border-radius:9px 9px 0 0;background:var(--dsw-alias-interactive-bg-subtle,#161b22);color:var(--dsw-alias-label-secondary,#8b949e);cursor:pointer;font-size:12px;user-select:none;flex:none;}
-.vtb-tab:hover{background:#1f2430;color:var(--dsw-alias-label-primary,#e6edf3);}
-.vtb-tab-active{background:var(--dsw-alias-interactive-bg-selected,#0d419d);color:#ffffff;}
-.vtb-dot{width:7px;height:7px;border-radius:50%;flex:none;background:currentColor;opacity:.7;}
-.vtb-tab-active .vtb-dot{opacity:1;}
+.vtb-group-active{color:var(--dsw-alias-brand-primary);border-left-color:var(--dsw-alias-brand-primary);}
+.vtb-tab{display:flex;align-items:center;gap:6px;max-width:200px;min-width:120px;height:32px;padding:0 6px 0 12px;border:1px solid var(--dsw-alias-border-l1);border-bottom:none;border-radius:9px 9px 0 0;background:var(--dsw-alias-bg-layer-2);color:var(--dsw-alias-label-secondary);cursor:pointer;font-size:12px;user-select:none;flex:none;}
+.vtb-tab:hover{background:var(--dsw-alias-bg-layer-1);color:var(--dsw-alias-label-primary);}
+.vtb-tab-active{background:var(--dsw-alias-bg-overlay);color:var(--dsw-alias-label-primary);border-color:var(--dsw-alias-brand-primary);font-weight:600;}
+.vtb-dot{width:7px;height:7px;border-radius:50%;flex:none;background:currentColor;opacity:.5;}
+.vtb-tab-active .vtb-dot{opacity:1;color:var(--dsw-alias-brand-primary);}
 .vtb-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;text-align:left;}
 .vtb-close{flex:none;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;border-radius:4px;color:inherit;cursor:pointer;font-size:14px;line-height:1;opacity:.55;}
-.vtb-close:hover{opacity:1;background:var(--dsw-alias-interactive-bg-hover,rgba(128,128,128,.3));}
+.vtb-close:hover{opacity:1;background:rgba(128,128,128,.3);}
 .vtb-context{display:flex;align-items:center;gap:8px;padding:4px 12px 8px;min-height:20px;}
-.vtb-context-cwd{font-size:11px;color:var(--dsw-alias-label-secondary,#8b949e);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;text-align:left;font-family:ui-monospace,Consolas,monospace;}
+.vtb-context-cwd{font-size:11px;color:var(--dsw-alias-label-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;text-align:left;font-family:ui-monospace,Consolas,monospace;}
 `
 
     // Idempotent stylesheet injection — the module body runs at materialization.
@@ -97,6 +100,10 @@ window.__ModuleLoader__.load({
         }
         return res.value
       }
+      // The host runs inside an Edge app window, so a bare right-click pops the
+      // browser's own menu (Back / Reload / Save as / Inspect). Suppress it inside
+      // plugin regions only, leaving DSH's own areas untouched.
+      const stopBrowserMenu = (e) => { e.preventDefault() }
       const listChildren = (path) => callHost('list', { path })
       const readFile = (path) => callHost('read', { path })
 
@@ -120,14 +127,19 @@ window.__ModuleLoader__.load({
         workspaces.archiveSession(id).catch(() => {})
       }
 
+      function menuItem(label, onClick) {
+        return react.createElement('div', { className: 'vex-menu-item', onClick }, label)
+      }
+
       function Row(props) {
-        const { entry, depth, expanded, selected, onToggle, onSelect } = props
+        const { entry, depth, expanded, selected, onToggle, onSelect, onContextMenu } = props
         const isDir = entry.type === 'directory'
         return react.createElement('div', {
           className: 'vex-row' + (selected ? ' vex-selected' : ''),
           style: { paddingLeft: String(8 + depth * 12) + 'px' },
           title: entry.path,
           onClick: () => onSelect(entry),
+          onContextMenu: (e) => onContextMenu(entry, e),
         },
           react.createElement('span', {
             className: 'vex-chevron' + (expanded ? ' vex-open' : '') + (isDir ? '' : ' vex-leaf'),
@@ -139,7 +151,7 @@ window.__ModuleLoader__.load({
       }
 
       function Tree(props) {
-        const { nodes, depth, childrenByPath, expanded, selectedPath, onToggle, onSelect } = props
+        const { nodes, depth, childrenByPath, expanded, selectedPath, onToggle, onSelect, onContextMenu } = props
         const out = []
         nodes.forEach((entry) => {
           const key = entry.path
@@ -149,7 +161,7 @@ window.__ModuleLoader__.load({
           out.push(react.createElement(Row, {
             key, entry, depth,
             expanded: isOpen, selected: selectedPath === key,
-            onToggle, onSelect,
+            onToggle, onSelect, onContextMenu,
           }))
           if (isDir && isOpen) {
             if (kids && kids.loading) {
@@ -159,7 +171,7 @@ window.__ModuleLoader__.load({
             } else if (kids && kids.entries) {
               out.push(react.createElement(Tree, {
                 key: key + ':kids', nodes: kids.entries, depth: depth + 1,
-                childrenByPath, expanded, selectedPath, onToggle, onSelect,
+                childrenByPath, expanded, selectedPath, onToggle, onSelect, onContextMenu,
               }))
             }
           }
@@ -190,7 +202,21 @@ window.__ModuleLoader__.load({
         const [selectedPath, setSelectedPath] = react.useState(null)
         const [preview, setPreview] = react.useState(null)
         const [naming, setNaming] = react.useState(false)
+        const [menu, setMenu] = react.useState(null)
+        const [renaming, setRenaming] = react.useState(null)
         const loadedRoot = react.useRef(null)
+
+        // Dismiss the context menu on any interaction outside it.
+        react.useEffect(() => {
+          if (!menu) return
+          const close = () => setMenu(null)
+          document.addEventListener('click', close)
+          window.addEventListener('resize', close)
+          return () => {
+            document.removeEventListener('click', close)
+            window.removeEventListener('resize', close)
+          }
+        }, [menu])
 
         const sortEntries = (list) => (list || []).slice().sort((a, b) =>
           ((a.type === 'directory' ? 0 : 1) - (b.type === 'directory' ? 0 : 1)) ||
@@ -258,16 +284,71 @@ window.__ModuleLoader__.load({
             .catch((err) => setPreview({ path: root.path, error: String((err && err.message) || err) }))
         }
 
+        const parentOf = (p) => {
+          const s = String(p || '')
+          const cut = Math.max(s.lastIndexOf('\\'), s.lastIndexOf('/'))
+          return cut > 0 ? s.slice(0, cut) : s
+        }
+
+        const copyText = (text) => {
+          if (typeof navigator === 'undefined' || navigator.clipboard === undefined) return
+          navigator.clipboard.writeText(text).catch(() => {})
+        }
+
+        const openEntryMenu = (entry, e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          setMenu({ x: e.clientX, y: e.clientY, entry })
+        }
+
+        const menuReveal = (entry) => {
+          setMenu(null)
+          callHost('reveal', { path: entry.path })
+        }
+
+        // A browser cannot hand a real file to the OS clipboard, so "copy" copies the
+        // entry name; the full path keeps its own item below.
+        const menuCopyName = (entry) => {
+          setMenu(null)
+          copyText(entry.name)
+        }
+
+        const menuCopyPath = (entry) => {
+          setMenu(null)
+          copyText(entry.path)
+        }
+
+        const menuRename = (entry) => {
+          setMenu(null)
+          setRenaming({ path: entry.path, name: entry.name })
+        }
+
+        const submitRename = (value) => {
+          const target = renaming
+          setRenaming(null)
+          if (!target) return
+          const name = String(value || '').trim()
+          if (name.length === 0 || name === target.name) return
+          callHost('rename', { path: target.path, name }).then((res) => {
+            if (res && res.error) {
+              setPreview({ path: target.path, error: res.error })
+              return
+            }
+            loadChildren(parentOf(target.path), true)
+          })
+        }
+
         if (!wide) {
           return react.createElement('button', {
             className: 'vex-rail', title: '资源管理器',
             onClick: expandSidebar,
+            onContextMenu: stopBrowserMenu,
           }, '\uD83D\uDCC1')
         }
 
         const rootEntry = root ? { name: root.name, type: 'directory', path: root.path } : null
 
-        return react.createElement('div', { className: 'vex-root' },
+        return react.createElement('div', { className: 'vex-root', onContextMenu: stopBrowserMenu },
           react.createElement('div', { className: 'vex-header' },
             react.createElement('span', { className: 'vex-header-title' }, '资源管理器'),
             react.createElement('button', { className: 'vex-action', title: '新建文件夹', onClick: () => setNaming(true) }, '\uFF0B'),
@@ -285,19 +366,46 @@ window.__ModuleLoader__.load({
               onBlur: (e) => submitName(e.target.value),
             }),
           ),
+          renaming && react.createElement('div', { className: 'vex-new' },
+            react.createElement('input', {
+              autoFocus: true,
+              defaultValue: renaming.name,
+              placeholder: '新名称',
+              onFocus: (e) => e.target.select(),
+              onKeyDown: (e) => {
+                if (e.key === 'Enter') submitRename(e.target.value)
+                if (e.key === 'Escape') setRenaming(null)
+              },
+              onBlur: (e) => submitRename(e.target.value),
+            }),
+          ),
           react.createElement('div', { className: 'vex-tree' },
             rootEntry === null
               ? react.createElement('div', { className: 'vex-empty' }, '没有会话或工作区，请先添加工作区。')
               : react.createElement(Tree, {
                   nodes: [rootEntry], depth: 0,
                   childrenByPath, expanded, selectedPath,
-                  onToggle: toggle, onSelect: select,
+                  onToggle: toggle, onSelect: select, onContextMenu: openEntryMenu,
                 }),
           ),
           preview && react.createElement('div', { className: 'vex-preview' },
             preview.error
               ? react.createElement('pre', { className: 'vex-error' }, preview.error)
               : react.createElement('pre', null, preview.content),
+          ),
+          menu && react.createElement('div', {
+            className: 'vex-menu',
+            style: {
+              left: Math.min(menu.x, (typeof window === 'undefined' ? 2000 : window.innerWidth) - 176) + 'px',
+              top: Math.min(menu.y, (typeof window === 'undefined' ? 2000 : window.innerHeight) - 150) + 'px',
+            },
+            onClick: (e) => e.stopPropagation(),
+            onContextMenu: (e) => { e.preventDefault(); e.stopPropagation() },
+          },
+            menuItem('打开（在资源管理器中显示）', () => menuReveal(menu.entry)),
+            menuItem('复制名称', () => menuCopyName(menu.entry)),
+            menuItem('重命名', () => menuRename(menu.entry)),
+            menuItem('复制文件位置', () => menuCopyPath(menu.entry)),
           ),
         )
       }
@@ -412,7 +520,7 @@ window.__ModuleLoader__.load({
           })
         })
 
-        return react.createElement('div', { className: 'vtb-root' },
+        return react.createElement('div', { className: 'vtb-root', onContextMenu: stopBrowserMenu },
           react.createElement('div', { className: 'vtb-bar', ref: barRef, onWheel: onBarWheel },
             react.createElement('button', { className: 'vtb-new', title: '新建会话（该工作区已有空闲会话时直接切过去）', onClick: newSession }, '+'),
             items,
@@ -424,6 +532,17 @@ window.__ModuleLoader__.load({
             : null,
         )
       }
+
+      // The host runs inside an Edge app window, so a bare right-click pops the
+      // browser's own menu (Back / Reload / Save as / Inspect) instead of anything
+      // app-like. Suppress it page-wide: plugin regions and DSH's own conversation
+      // area alike. Owning it via ctx.effect means it disappears with the plugin.
+      ctx.effect(() => {
+        if (typeof document === 'undefined') return
+        const suppressContextMenu = (e) => { e.preventDefault() }
+        document.addEventListener('contextmenu', suppressContextMenu)
+        return () => document.removeEventListener('contextmenu', suppressContextMenu)
+      })
 
       // Both slots are `single` and the built-in UI already occupies them at
       // priority 0; register at a lower priority to shadow it (lowest renders).
